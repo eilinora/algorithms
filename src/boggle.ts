@@ -14,10 +14,8 @@ const dictionary: Dictionary = [
 ];
 const boggle: Board = [["G", "N", "Z"], ["U", "E", "K"], ["F", "S", "E"]];
 
-console.log("here??");
-const t = (word: string, parent: TrieNode, pos: number) => {
+const trieLeaf = (word: string, parent: TrieNode, pos: number) => {
   const l = word[pos];
-  // console.log("l", l);
 
   const isEnd =
     pos === word.length - 1
@@ -32,7 +30,7 @@ const t = (word: string, parent: TrieNode, pos: number) => {
   };
 
   if (pos + 1 < word.length) {
-    return t(word, parent[l], pos + 1);
+    return trieLeaf(word, parent[l], pos + 1);
   }
 };
 
@@ -40,7 +38,7 @@ const buildTrie = (dict: Dictionary): TrieNode => {
   const d = dict.reduce((acc, cur) => {
     return {
       ...acc,
-      ...t(cur, acc, 0)
+      ...trieLeaf(cur, acc, 0)
     };
   }, {});
 

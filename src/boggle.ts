@@ -14,6 +14,7 @@ const dictionary: Dictionary = [
 ];
 const boggle: Board = [["G", "N", "Z"], ["U", "E", "K"], ["F", "S", "E"]];
 
+console.log("here??");
 const t = (word: string, parent: TrieNode, pos: number) => {
   const l = word[pos];
   // console.log("l", l);

@@ -133,3 +133,34 @@ const buildMatrix = (board: Board, dictionary: Dictionary): string[] => {
 };
 
 console.log(buildMatrix(boggle, dictionary));
+
+
+// Evolutions of this....
+/*
+class Game {
+  board: string[][],
+}
+
+class Trie {
+  generateTrie (string[] | string) => (aka builds trie for use in searching)
+}
+
+class Boggle extend Game {
+  trie: Trie,
+  board: string[][],
+  set board (board),
+  isWord (string) => {
+    // creates Trie from word sent
+    // _maybe_ but might be fancy build array of Letter class
+    //     class Letter { value: string, position: { x: int, y: int } } 
+    //     could have performance implications for large board
+
+
+    // is word goes through letters in string
+    // first checks if 0 depth has that if it does
+    // calls checkLetter which will return array
+  }
+
+  checkLetter (....) => 
+}
+

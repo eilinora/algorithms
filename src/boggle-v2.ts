@@ -15,7 +15,18 @@ const dictionary: Dictionary = [
 ];
 const boggle: Board = [["G", "N", "Z"], ["U", "E", "K"], ["F", "S", "E"]];
 
-const createTrie = (word: string, trie: TrieNode, i: number = 0, level: number = 0): TrieNode => {
+const vertices = [
+    [-1, 0],
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [-1, -1],
+    [1, -1],
+    [1, 1],
+    [-1, 1],
+]
+
+const createTrie = (word: string, trie: TrieNode, i: number = 0, l) {
     // for (let i = startPos; i < word.length; i++) {
         
         if (i === word.length) {
@@ -55,3 +66,4 @@ const buildTrie = (dic: Dictionary): TrieNode => {
 }
 
 console.log(JSON.stringify(buildTrie(dictionary), null, 2));
+

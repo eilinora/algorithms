@@ -30,7 +30,7 @@ var solveNQueens = function(n) {
         if (row == n){
             // rearrange the result as requested.
             result.push([...board].map(row => row.join('')));
-            console.log('done...');
+            console.log('done...', board);
             return;
         }
 
@@ -38,6 +38,7 @@ var solveNQueens = function(n) {
         for (let col = 0; col < n; col++){
             console.log('evaluating... row=', row, 'col=', col);
             if (!isValid(row, col, n, board)) {
+                console.log('skip... row=',row,'col=', col);
                 continue;
             }
 

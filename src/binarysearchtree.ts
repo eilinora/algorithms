@@ -21,6 +21,7 @@ class BinarySearchTree<T> {
         if (value < node.value) {
             if (node.left === null) {
                 node.left = new BinaryTreeNode<T>(null, null, value);
+                this._size++;
                 return true;
             }
             return this._insert(node.left, value);
@@ -28,6 +29,7 @@ class BinarySearchTree<T> {
 
         if (node.right === null) {
             node.right = new BinaryTreeNode<T>(null, null, value);
+            this._size++;
             return true;
         }
         return this._insert(node.right, value);
@@ -48,9 +50,65 @@ class BinarySearchTree<T> {
         return this._insert(this.root, value);
     }
 
+    private _digLeft(node: BSTNode<T>): BSTNode<T> {
+        if (node.left === null) {
+            return node;
+        }
+
+        this._digLeft(node.left);
+    }
+
+    private _remove(node: BSTNode<T>, value: T): boolean {
+        if (node.value === value) {
+            // if the node has only a left or right child than just do simple replace
+            if (node.left === null && node.right !== null) {
+                node.value = node.right.value;
+                node.left = node.right.left;
+                node.right = node.right.right;
+                this._size--;
+                return true;
+            }
+
+            if (node.right === null && node.left !== null) {
+                node.value = node.left.value;
+                node.left = node.left.left;
+                node.right = node.right.right;
+                this._size--;
+                return true;
+            }
+
+            // if the node has both than find the smallest node on right child node tree
+            const smallest = this._digLeft(node.right);
+            // the smallest right children need to now be attached to its parent
+            const tmp = smallest.value;
+            smallest.value = smallest.right.value;
+            smallest.left = smallest.right.left;
+            smallest.right = smallest.right.right;
+
+            node.value = tmp;
+            this._size--;
+            return true;
+        }
+
+        // go left cause the value is less than the node we are at
+        if (value < node.value) {
+            this._remove(node.left, value);
+        }
+
+        // otherwise go right cause the node is greater than the value we are seaking
+        return this._remove(node.right, value);
+    }
+
     public remove(value: T): boolean {
-        // add logic to remove a node
-        return false;
+        if (this._root === null) {
+            return false;
+        }
+
+        if (!this.contains(value)) {
+            return false;
+        }
+
+        return this._remove(this._root, value);
     }
 
     private _contains(node: BSTNode<T>, value) {
@@ -62,11 +120,12 @@ class BinarySearchTree<T> {
             return true;
         }
 
-        // go left cause the value we want is greater than the current node
+        // go left cause the value is less than the node we are at
         if (value < node.value) {
             this._contains(node.left, value);
         }
 
+        // otherwise go right cause the node is greater than the value we are seaking
         return this._contains(node.right, value);
     }
 
@@ -81,6 +140,10 @@ class BinarySearchTree<T> {
 
     public get root(): BSTNode<T> {
         return this._root;
+    }
+
+    public get size(): number {
+        return this._size;
     }
 
     private _inOrderPrint(node: BSTNode<T>, list: T[]) {
@@ -116,9 +179,19 @@ function createBST () {
     bst.insert(6);
     bst.insert(20);
     bst.insert(3);
+    bst.insert(12);
+    bst.insert(30);
+    bst.insert(8);
     bst.inOrderPrint();
+    console.log('size', bst.size);
     console.log('is 20 found?', bst.contains(20));
     console.log('is 10 found?', bst.contains(10));
+    console.log('removed 5', bst.remove(5));
+    bst.inOrderPrint();
+    console.log('size', bst.size);
+    console.log('removed 2', bst.remove(2));
+    bst.inOrderPrint();
+    console.log('size', bst.size);
 }
 
 createBST();

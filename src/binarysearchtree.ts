@@ -53,22 +53,44 @@ class BinarySearchTree<T> {
         return false;
     }
 
+    private _contains(node: BSTNode<T>, value) {
+        if (node === null) {
+            return false;
+        }
+
+        if (value === node.value) {
+            return true;
+        }
+
+        // go left cause the value we want is greater than the current node
+        if (value < node.value) {
+            this._contains(node.left, value);
+        }
+
+        return this._contains(node.right, value);
+    }
+
     public contains(value: T): boolean {
         // should check the tree to see if value exists in
-        return false;
+        if (this._root.value === null || value === null) {
+            return false;
+        }
+
+        return this._contains(this._root, value);
     }
 
     public get root(): BSTNode<T> {
         return this._root;
     }
 
-    private _inOrderPrint(node: BSTNode<T>) {
+    private _inOrderPrint(node: BSTNode<T>, list: T[]) {
         if (node === null) {
             return;
         }
-        this._inOrderPrint(node.left);
-        this.print(node.value);
-        this._inOrderPrint(node.right);
+        this._inOrderPrint(node.left, list);
+        this.print(node.value, list);
+        this._inOrderPrint(node.right, list);
+        return list;
     }
 
     public inOrderPrint() {
@@ -76,11 +98,12 @@ class BinarySearchTree<T> {
             return;
         }
 
-        this._inOrderPrint(this._root);
+        const ordered = this._inOrderPrint(this._root, []);
+        console.log(ordered);
     }
 
-    public print(value: T) {
-        console.log(value);
+    public print(value: T, list: T[]) {
+        list.push(value);
     }
 
 }
@@ -94,6 +117,8 @@ function createBST () {
     bst.insert(20);
     bst.insert(3);
     bst.inOrderPrint();
+    console.log('is 20 found?', bst.contains(20));
+    console.log('is 10 found?', bst.contains(10));
 }
 
 createBST();

@@ -1,4 +1,4 @@
-class MinHeap {
+class MinHeapChatGPT {
     constructor() {
       this.heap = [];
     }
@@ -18,6 +18,7 @@ class MinHeap {
   
       if (this.heap.length > 0) {
         this.heap[0] = lastElement;
+        console.log('lastElement', lastElement);
         this._heapifyDown();
       }
   
@@ -47,19 +48,29 @@ class MinHeap {
         let minIndex = currentIndex;
   console.log('leftChildIndex', leftChildIndex);
   console.log('rightChildIndex', rightChildIndex);
+  console.log('this.heap[leftChildIndex]', this.heap[leftChildIndex]);
+  console.log('this.heap[minIndex]', this.heap[minIndex]);
+  console.log('this.heap[rightChildIndex]', this.heap[rightChildIndex]);
         if (leftChildIndex < this.heap.length && this.heap[leftChildIndex] < this.heap[minIndex]) {
+          console.log('left');
           minIndex = leftChildIndex;
         }
   
         console.log('left minIndex', minIndex);
+        console.log('this.heap[rightChildIndex]', this.heap[rightChildIndex]);
+        console.log('this.heap[minIndex]', this.heap[minIndex]);
         if (rightChildIndex < this.heap.length && this.heap[rightChildIndex] < this.heap[minIndex]) {
+          console.log('right');
           minIndex = rightChildIndex;
         }
   
         console.log('right minIndex', minIndex);
         if (minIndex !== currentIndex) {
+          console.log('push down', this.heap[currentIndex], this.heap[minIndex]);
           [this.heap[currentIndex], this.heap[minIndex]] = [this.heap[minIndex], this.heap[currentIndex]];
+          console.log('result down', this.heap[currentIndex], this.heap[minIndex]);
           currentIndex = minIndex;
+          console.log('-- currentIndex', currentIndex);
         } else {
           break;
         }

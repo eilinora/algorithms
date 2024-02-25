@@ -1,4 +1,4 @@
-class TreeNode {
+class TreeNodeGPT {
     constructor(value) {
       this.value = value;
       this.left = null;
@@ -6,7 +6,7 @@ class TreeNode {
     }
   }
   
-  class BinarySearchTree {
+  class BinarySearchTreeGPT {
     constructor() {
       this.root = null;
     }

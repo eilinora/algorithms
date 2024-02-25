@@ -1,4 +1,4 @@
-class MaxHeap {
+class MaxHeapGPT {
     constructor() {
       this.heap = [];
     }

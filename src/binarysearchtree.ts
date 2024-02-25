@@ -12,7 +12,7 @@ class BinaryTreeNode<T> {
 }
 class BinarySearchTree<T> {
     private _root: BSTNode<T> = null;
-    private _size = 0;
+    private _size: number = 0;
 
     private _insert(node: BSTNode<T>, value: T): boolean {
         // Travese the tree and either add the value to the left or right side based on value

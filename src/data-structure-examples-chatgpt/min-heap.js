@@ -4,6 +4,7 @@ class MinHeapChatGPT {
     }
   
     insert(value) {
+      console.log('--- INSER VALUE', value)
       this.heap.push(value);
       this._heapifyUp();
     }
@@ -27,12 +28,17 @@ class MinHeapChatGPT {
   
     _heapifyUp() {
       let currentIndex = this.heap.length - 1;
-  
+
       while (currentIndex > 0) {
         const parentIndex = Math.floor((currentIndex - 1) / 2);
+        console.log(this.heap);
+        console.log('-- loop - parentIndex', parentIndex, 'curIndex', currentIndex);
         if (this.heap[currentIndex] < this.heap[parentIndex]) {
+          console.log('to be swapped', this.heap[currentIndex], this.heap[parentIndex]);
           [this.heap[currentIndex], this.heap[parentIndex]] = [this.heap[parentIndex], this.heap[currentIndex]];
+          console.log('swap', this.heap[currentIndex], this.heap[parentIndex]);
           currentIndex = parentIndex;
+          console.log(this.heap);
         } else {
           break;
         }
@@ -80,19 +86,23 @@ class MinHeapChatGPT {
   
   // Example Usage:
   
-  let minHeap = new MinHeap();
+  let minHeap = new MinHeapChatGPT();
   
   // Inserting nodes
-  minHeap.insert(5);
-  minHeap.insert(3);
-  minHeap.insert(7);
   minHeap.insert(2);
-  minHeap.insert(4);
+  minHeap.insert(5);
   minHeap.insert(6);
+  minHeap.insert(20);
+  minHeap.insert(1);
+  console.log(minHeap.heap);
+  minHeap.insert(12);
+  minHeap.insert(30);
   minHeap.insert(8);
+  minHeap.insert(0);
+  console.log(minHeap.heap);
   
   // Extracting the minimum
-  console.log(minHeap.extractMin()); // Output: 2
+  // console.log(minHeap.extractMin()); // Output: 2
   
   // Visualizing the min heap
   console.log(minHeap.heap);
